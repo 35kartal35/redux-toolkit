@@ -30,6 +30,20 @@ export const todoSlice = createSlice({
         },
         deleteTodo: (state, action) => {
             state.todos.splice(action.payload, 1)
+        },
+        updateTodo: (state, action) => {
+            let temp = []
+            for (let i = 0; i < state.todos.length; i++) {
+                if (state.todos[i].id !== action.payload.id) {
+                    temp.push(state.todos[i])
+                } else {
+                    temp.push(action.payload)
+                }
+            }
+            return {
+                ...state,
+                todos: temp
+            }
         }
     }
 
@@ -38,7 +52,8 @@ export const todoSlice = createSlice({
 
 export const {
     addTodo,
-    deleteTodo
+    deleteTodo,
+    updateTodo
 } = todoSlice.actions
 
 

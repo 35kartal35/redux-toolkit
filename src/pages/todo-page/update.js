@@ -1,14 +1,15 @@
 
+import { Form, Row, Col, Button, Table } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { updateTodo } from "../../state/todoSlice";
 
-import { Table, Button, Row, Col, Form } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
-import { addTodo, deleteTodo } from "../../state/todoSlice"
+export default function Update() {
 
-export default function Todo() {
     const todoState = useSelector(state => state.todoState)
     const dispatch = useDispatch()
-    console.log('>>TODO State', todoState)
+
+
+
     return (
         <>
             <div>
@@ -16,7 +17,8 @@ export default function Todo() {
                     event.preventDefault()
                     const formData = new FormData(event.target);
                     const formValueJson = Object.fromEntries(formData.entries());
-                    dispatch(addTodo(formValueJson))
+                    dispatch(updateTodo(formValueJson))
+
                 }}>
 
 
@@ -24,7 +26,7 @@ export default function Todo() {
                         <Col sm={4}>
                             <Form.Group >
                                 <Form.Label>
-                                    Todo Başlığı
+                                    {todoState}
                                 </Form.Label>
                                 <Form.Control type="text" name="title" />
                             </Form.Group>
@@ -66,44 +68,29 @@ export default function Todo() {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            todoState.todos.map((item, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>
-                                            {item.id}
-                                        </td>
-                                        <td>
-                                            {item.title}
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" checked={item.done} />
-                                        </td>
-                                        <td>
-                                            <Link to={"/update"} variant="primary" className="me-2">
-                                                Düzenle
-                                            </Link>
-                                            <Button variant="danger" onClick={event => dispatch(deleteTodo(index))}
 
-                                            >
-                                                Sil
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                )
+                        <tr >
+                            <td>
+                                ...
+                            </td>
+                            <td>
+                                ...
+                            </td>
 
-                            })
-                        }
+                            <td>
+                                <Button variant="primary" className="me-2">
+                                    Düzenle
+                                </Button>
 
-
-
-
-
-
-
+                            </td>
+                        </tr>
                     </tbody>
                 </Table>
             </div>
+
+
+
+
         </>
     )
 }
